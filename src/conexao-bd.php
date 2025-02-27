@@ -1,21 +1,32 @@
 <?php
-try {
-    $username = "root";  // Usuário do banco de dados
-    $password = "estacio123";  // Senha do banco
 
-    // Criando a conexão com o PDO
-    $pdo = new PDO("mysql:host=172.17.0.3;dbname=estacio;charset=utf8", $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ]);    
+class ConnectDatabase 
+{
+    private $pdo;
+    private $dsn;
 
-    // Definindo o modo de erro do PDO para exceções
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    public function __construct(
+        private string $username,
+        private string $password
+    ) {}
 
-} catch (PDOException $e) {
-    echo "<pre>"; print_r($e);
-    echo "Erro na conexão: " . $e->getMessage();
+    public function connect(): \PDO
+    {
+        try {
+            $this->dsn = "mysql:host=172.17.0.3;dbname=estacio;charset=utf8";
+
+            // Criando a conexão com o PDO
+            $this->pdo = new PDO($this->dsn, $this->username, $this->password, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false
+            ]);
+        
+            return $this->pdo;
+        
+        } catch (PDOException $e) {
+            echo "<pre>"; print_r($e);
+            echo "Erro na conexão: " . $e->getMessage();
+        }
+    }
 }
-// Conectado
-?>

@@ -2,6 +2,10 @@
 
 require_once "src/conexao-bd.php";
 
+$pdo = new ConnectDatabase(
+    "root", "estacio123"
+);
+
 function gerarPlaca(){
    $letras = "abcdefghijklmnopqrstuvwxyz";
    $numeros = "123456789";
