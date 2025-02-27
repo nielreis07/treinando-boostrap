@@ -1,5 +1,16 @@
 <?php
 
+function gerarPlaca(){
+   $letras = "abcdefghijklmnopqrstuvwxyz";
+   $numeros = "123456789";
+
+   return substr(str_shuffle($letras), 0,3).
+          substr(str_shuffle($numeros), 0,1).
+          substr(str_shuffle($letras), 0,1).
+          substr(str_shuffle($numeros), 0,2);
+}
+
+
 $carros = [
     [
         "id" => 1,
@@ -57,14 +68,14 @@ $carros = [
     ]
 ];
 
-foreach ($carros as $carro) {
+    $placa = gerarPlaca();
     echo "<div style='border: 1px solid #ccc; padding: 10px; margin: 10px;'>";
     echo "<h2>{$carro['modelo']} ({$carro['ano']})</h2>";
     echo "<p><strong>Marca:</strong> {$carro['marca']}</p>";
     echo "<p><strong>Preço da diária:</strong> R$ " . number_format($carro['preco_diaria'], 2, ',', '.') . "</p>";
     echo "<p><strong>Disponível:</strong> " . ($carro['disponivel'] ? "Sim" : "Não") . "</p>";
+    echo "<p><strong>Placa:</strong> $placa</p>";
     echo "<img src='{$carro['imagem']}' alt='{$carro['modelo']}' width='300'>";
     echo "</div>";
-}
 
 ?>
