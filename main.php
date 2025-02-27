@@ -1,5 +1,7 @@
 <?php
 
+require_once "src/conexao-bd.php";
+
 function gerarPlaca(){
    $letras = "abcdefghijklmnopqrstuvwxyz";
    $numeros = "123456789";
